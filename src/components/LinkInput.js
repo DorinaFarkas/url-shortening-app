@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Form, Row, Container, Col, Button, Card } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { Form, Row, Container, Col, Button } from 'react-bootstrap'
+import LinkCard from './LinkCard';
 
 function LinkInput() {
     const [longUrl, setLongUrl] = useState('');
@@ -11,15 +12,28 @@ function LinkInput() {
             .then(response => response.json())
             .then(data => {
                 setIsLoading(false);
-                setFinalUrls(() => setFinalUrls([...finalUrls, [longUrl, data.result.full_short_link]]));
+                setFinalUrls(() => setFinalUrls([...finalUrls, [longUrl, data.result.full_short_link]]))
+                    (localStorage.setItem('finalUrls', finalUrls))
             })
             .catch((error) => console.error(error))
     }
 
-    const copyLink = (index) => {
-        console.log(finalUrls[index][1]);
-        navigator.clipboard.writeText(finalUrls[index][1]);
-    }
+    useEffect(() => {
+        if (localStorage.getItem('finalUrls')) {
+            const urls = localStorage.getItem('finalUrls').split(',');
+            let urlList = [];
+            let i, j, temporary, chunk = 2;
+            for (i = 0, j = urls.length; i < j; i += chunk) {
+                temporary = urls.slice(i, i + chunk);
+                urlList.push(temporary)
+            }
+            setFinalUrls(urlList);
+            // if (finalUrls !== '') {
+            //     (localStorage.setItem('finalUrls', finalUrls))
+            // }
+        }
+    }, []);
+
 
     return (
         <>
@@ -46,23 +60,7 @@ function LinkInput() {
                     </Row>
                 </Form>
             </Container>
-            {finalUrls ?
-                <Container className="pt-5">
-                    {finalUrls ? finalUrls.map((item, index) =>
-                        < Card key={index} className="mt-5 mb-5">
-                            <Card.Body>
-                                <Row>
-                                    <Col lg={5}>{item[0]}</Col>
-                                    <Col className="text-right" lg={5}>{item[1]}</Col>
-                                    <Button onClick={() => copyLink(index)}>Copy</Button>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                        ) : ''
-                    }
-                </Container>
-                : ''
-            }
+            {finalUrls && <LinkCard finalUrls={finalUrls} />}
         </>
     )
 }

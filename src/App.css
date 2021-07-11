@@ -5,3 +5,49 @@
   padding: 2.5em 2.5em 1.3em 2.5em;
   border-radius: 10px;
 }
+
+@font-face {
+  font-family: 'Quicksand';
+  src: local('Quicksand'), url(./assets/fonts/Quicksand-Regular.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url(./assets/fonts/Poppins-Regular.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Poppins Medium';
+  src: local('Poppins Medium'), url(./assets/fonts/Poppins-Medium.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Poppins Bold';
+  src: local('Poppins Bold'), url(./assets/fonts/Poppins-Bold.ttf) format('opentype');
+}
+
+*{
+  font-family: Quicksand;
+}
+
+h1, .navbar-brand  {
+  font-family: 'Poppins Bold';
+  font-weight: 700;
+}
+
+button.btn-primary {
+  font-family: 'Poppins Bold';
+  background-color: hsl(180, 66%, 49%);
+  border-color: hsl(180, 66%, 49%);
+  border-radius: 2em;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: hsl(180, 60%, 65%)!important;
+  border-color: hsl(180, 60%, 65%)!important;
+}
+
+button:hover.btn-primary:hover, button:focus.btn-primary:focus, button:active.btn-primary:active{
+  background-color: hsl(180, 60%, 65%)!important;
+  border-color: hsl(180, 60%, 65%)!important;
+}
