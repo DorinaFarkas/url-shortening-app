@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Nav, Navbar, Button } from 'react-bootstrap'
 
 function TheNavbar() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false) 
+    const [isSignedUp, setIsSignedUp] = useState(false) 
+    const toggleIsLoggedIn = () => {
+        setIsLoggedIn(!isLoggedIn)
+    }
+    const toggleIsSignedUp = (e) => {
+        e.preventDefault()
+        setIsSignedUp(!isSignedUp)
+    }
     return (
         <>
             <Navbar expand="md">
@@ -21,12 +30,12 @@ function TheNavbar() {
                         </Nav>
                         <Navbar.Collapse className="justify-content-end">
                             <Nav>
-                                <Nav.Link>
-                                    Login
+                                <Nav.Link onClick={toggleIsLoggedIn}>
+                                   {isLoggedIn ? 'Logged in' : 'Login' } 
                                 </Nav.Link>
                             </Nav>
-                            <Button>
-                                Sign Up
+                            <Button onClick={toggleIsSignedUp}>
+                            {isSignedUp ? 'Signed Up' : 'Sign Up' }
                             </Button>
                         </Navbar.Collapse>
                     </Navbar.Collapse>
